@@ -27,6 +27,26 @@ jobs:
           python-version: "3.11"
       - name: flake8 Lint
         uses: py-actions/flake8@v2
+        
+  aws:
+    name: Deploy image to aws
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: multiple command
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOSTNAME }}
+        username: ${{ secrets.USER_NAME }}
+        key: ${{ secrets.AWS_PRIVATE_KEY }}
+        port: 22  # ${{ secrets.PORT }}
+        script: |
+            sleep 30
+            docker stop web && docker rm web
+            docker rmi agilrom/fastapi-ceti
+            docker run -d -p 80:5000 --name web agilrom/fastapi-ceti
+            sleep 30
+            
   build:
     name: build and push Docker image
     needs: flake8-lint
