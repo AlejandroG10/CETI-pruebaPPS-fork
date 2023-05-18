@@ -1,0 +1,37 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+
+name: Python application
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  flake8-lint:
+    name: Lint with flake8
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source repository
+        uses: actions/checkout@v3
+      - name: Set up Python environment
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      - name: flake8 Lint
+        uses: py-actions/flake8@v2
+  build:
+    name: build and push Docker image
+    needs: flake8-lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          context: .
+          push: true 
+          ignore: "W291"
+      # - name: Sleep for 60 seconds
+      #   run: sleep 60s
+      #   shell: bash
