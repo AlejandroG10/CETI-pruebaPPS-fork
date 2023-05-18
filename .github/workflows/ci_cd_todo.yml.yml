@@ -5,9 +5,14 @@ name: Python application
 
 on:
   push:
-    branches: [ "main" ]
+    paths:
+      - '**.py'
+      - '.github/workflows/ci_cd_todo.yml'
   pull_request:
-    branches: [ "main" ]
+    paths:
+      - '**.py'
+      - '.github/workflows/ci_cd_todo.yml'
+
 
 jobs:
   flake8-lint:
