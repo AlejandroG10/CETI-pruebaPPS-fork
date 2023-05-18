@@ -68,6 +68,6 @@ jobs:
         script: |
             sleep 30
             docker stop web && docker rm web
-            docker rmi agilrom/galeria
-            docker run -d -p 80:5000 --name web agilrom/galeria
+            docker rmi agilrom/fastapi-ceti
+            docker run -d -p 80:5000 --name web agilrom/fastapi-ceti
             sleep 30
