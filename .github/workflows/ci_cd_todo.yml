@@ -27,6 +27,8 @@ jobs:
           python-version: "3.11"
       - name: flake8 Lint
         uses: py-actions/flake8@v2
+        with:
+          ignore: "W291"
         
   aws:
     name: Deploy image to aws
@@ -66,7 +68,6 @@ jobs:
           context: .
           push: true 
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/fastapi-ceti:latest
-          ignore: "W291"
       # - name: Sleep for 60 seconds
       #   run: sleep 60s
       #   shell: bash
