@@ -29,25 +29,6 @@ jobs:
         uses: py-actions/flake8@v2
         with:
           ignore: "W291"
-        
-  aws:
-    name: Deploy image to aws
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-    - name: multiple command
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.HOSTNAME }}
-        username: ${{ secrets.USER_NAME }}
-        key: ${{ secrets.AWS_PRIVATE_KEY }}
-        port: 22  # ${{ secrets.PORT }}
-        script: |
-            sleep 30
-            docker stop web && docker rm web
-            docker rmi agilrom/galeria
-            docker run -d -p 80:5000 --name web agilrom/galeria
-            sleep 30
             
   build:
     name: build and push Docker image
@@ -71,3 +52,22 @@ jobs:
       # - name: Sleep for 60 seconds
       #   run: sleep 60s
       #   shell: bash
+      
+  aws:
+    name: Deploy image to aws
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: multiple command
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOSTNAME }}
+        username: ${{ secrets.USER_NAME }}
+        key: ${{ secrets.AWS_PRIVATE_KEY }}
+        port: 22  # ${{ secrets.PORT }}
+        script: |
+            sleep 30
+            docker stop web && docker rm web
+            docker rmi agilrom/galeria
+            docker run -d -p 80:5000 --name web agilrom/galeria
+            sleep 30
