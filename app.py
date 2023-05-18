@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException # prueba
+from fastapi import FastAPI, HTTPException
 
 import schemas
 import db
