@@ -66,6 +66,7 @@ jobs:
           context: .
           push: true 
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/fastapi-ceti:latest
+          ignore: "W291"
       # - name: Sleep for 60 seconds
       #   run: sleep 60s
       #   shell: bash
