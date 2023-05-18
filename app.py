@@ -28,9 +28,10 @@ Key = "e7322523fb86ed64c836a979cf8465fbd43637812"
 
 @app.get('/students/', response_model=list[schemas.StudentOut])
 def user_list():
-    noseusa = 100
+    #noseusa = 100
     res = db.session.query(Student).all()
     return res
+
 
 @app.post('/students/', response_model=schemas.StudentOut)
 def user_add(alu: schemas.StudentIn):
