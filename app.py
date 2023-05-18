@@ -2,7 +2,7 @@ from fastapi import FastAPI, HTTPException
 
 import schemas
 import db
-from modelsDB import Student
+from modelsDB import Student 
 
 db.Base.metadata.create_all(db.engine)
 
